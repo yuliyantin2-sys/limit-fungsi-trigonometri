@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Pembelajaran Interaktif Limit Fungsi Trigonometri</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- MathJax for LaTeX Rendering -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .tab-btn.active {
+            border-bottom: 3px solid #f59e0b;
+            color: #ffffff;
+            font-weight: 700;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col justify-between">
+
+    <!-- HEADER & NAVBAR -->
+    <header class="bg-indigo-950 text-white sticky top-0 z-50 shadow-lg border-b border-indigo-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center py-3 gap-3">
+                
+                <!-- Title & Badge -->
+                <div class="flex items-center gap-3">
+                    <div class="p-2.5 bg-indigo-600 rounded-xl shadow-md text-amber-400">
+                        <i class="fa-solid fa-wave-square text-2xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-extrabold tracking-tight text-white flex items-center gap-2">
+                            Limit Fungsi Trigonometri
+                            <span class="text-xs bg-amber-500 text-indigo-950 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">Kelas XII Fase F</span>
+                        </h1>
+                        <p class="text-xs text-indigo-200">Media Pembelajaran Interaktif Berbasis Deep Learning & Growth Mindset</p>
+                    </div>
+                </div>
+
+                <!-- Navigation Tabs -->
+                <nav class="flex overflow-x-auto w-full md:w-auto gap-1 sm:gap-2 border-t md:border-t-0 border-indigo-800/60 pt-2 md:pt-0 custom-scrollbar">
+                    <button onclick="switchTab('visualizer')" id="tab-visualizer" class="tab-btn active px-3 py-2 text-xs sm:text-sm font-medium text-indigo-200 hover:text-white transition flex items-center gap-1.5 whitespace-nowrap">
+                        <i class="fa-solid fa-chart-line text-amber-400"></i> Eksplorasi Visual
+                    </button>
+                    <button onclick="switchTab('metode')" id="tab-metode" class="tab-btn px-3 py-2 text-xs sm:text-sm font-medium text-indigo-200 hover:text-white transition flex items-center gap-1.5 whitespace-nowrap">
+                        <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i> 5 Metode
+                    </button>
+                    <button onclick="switchTab('model-soal')" id="tab-model-soal" class="tab-btn px-3 py-2 text-xs sm:text-sm font-medium text-indigo-200 hover:text-white transition flex items-center gap-1.5 whitespace-nowrap">
+                        <i class="fa-solid fa-shapes text-amber-400"></i> Model Soal Visual
+                    </button>
+                    <button onclick="switchTab('bahan-ajar')" id="tab-bahan-ajar" class="tab-btn px-3 py-2 text-xs sm:text-sm font-medium text-indigo-200 hover:text-white transition flex items-center gap-1.5 whitespace-nowrap">
+                        <i class="fa-solid fa-book-bookmark text-amber-400"></i> Bahan Ajar & Rumus
+                    </button>
+                    <button onclick="switchTab('kuis')" id="tab-kuis" class="tab-btn px-3 py-2 text-xs sm:text-sm font-medium text-indigo-200 hover:text-white transition flex items-center gap-1.5 whitespace-nowrap">
+                        <i class="fa-solid fa-pen-to-square text-amber-400"></i> Kuis (20 Soal)
+                    </button>
+                </nav>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full flex-grow">
+
+        <!-- TAB 1: EKSPLORASI & VISUALISASI GRAFIK DINAMIS -->
+        <section id="sec-visualizer" class="space-y-6">
+            
+            <!-- Intro Banner -->
+            <div class="bg-gradient-to-r from-indigo-900 via-indigo-800 to-purple-900 text-white p-6 rounded-2xl shadow-lg border border-indigo-700">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div class="space-y-1">
+                        <span class="bg-amber-400 text-indigo-950 text-xs font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">Pendekatan Deep Learning</span>
+                        <h2 class="text-2xl font-bold">Membangun Intuisi Konsep Limit</h2>
+                        <p class="text-indigo-200 text-sm max-w-2xl">
+                            Limit menjelaskan perilaku fungsi saat variabel input $x$ **mendekati suatu nilai tertentu**, bukan nilai fungsi tepat di titik tersebut. Mari eksplorasi secara intuitif!
+                        </p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-md p-3 rounded-xl border border-white/20 text-xs text-amber-300 font-medium space-y-1">
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-brain"></i> <span>Pola Pikir Bertumbuh:</span></div>
+                        <p class="text-white text-[11px]">"Keinginan untuk tahu 'mengapa' adalah kunci utama dalam menguasai Matematika!"</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visualizer Card Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                
+                <!-- Controls & Chart -->
+                <div class="lg:col-col-span-2 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4 lg:col-span-2">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b pb-4">
+                        <label for="funcSelect" class="font-bold text-slate-800 text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-sliders text-indigo-600"></i> Pilih Fungsi Trigonometri:
+                        </label>
+                        <select id="funcSelect" onchange="updateChart()" class="bg-slate-50 border border-slate-300 text-slate-800 text-sm rounded-lg p-2.5 focus:ring-2 focus:ring-indigo-500 font-medium outline-none">
+                            <option value="sinX_X">f(x) = sin(x) / x  (saat x → 0)</option>
+                            <option value="cosMinus_X2">f(x) = (1 - cos x) / x²  (saat x → 0)</option>
+                            <option value="tan3X_2X">f(x) = tan(3x) / 2x  (saat x → 0)</option>
+                            <option value="xSinInfty">f(x) = x · sin(1/x)  (saat x → ∞)</option>
+                        </select>
+                    </div>
+
+                    <!-- Canvas Container -->
+                    <div class="relative w-full h-64 sm:h-80 bg-slate-50 rounded-xl p-2 border border-slate-200">
+                        <canvas id="limitChart"></canvas>
+                    </div>
+
+                    <!-- Slider Control -->
+                    <div class="bg-indigo-50/70 p-4 rounded-xl border border-indigo-100 space-y-3">
+                        <div class="flex justify-between items-center text-xs font-bold text-indigo-900">
+                            <span id="sliderLabel"><i class="fa-solid fa-arrows-left-right"></i> Nilai x Pendekatan:</span>
+                            <span id="sliderValDisplay" class="bg-indigo-600 text-white px-2.5 py-1 rounded-md font-mono text-xs">x = 0.50</span>
+                        </div>
+                        <input type="range" id="xSlider" min="-2" max="2" step="0.01" value="0.5" oninput="onSliderMove()" class="w-full accent-indigo-600 cursor-pointer">
+                        <div class="flex justify-between text-[11px] text-slate-500 font-mono">
+                            <span id="sliderMin">-2.0</span>
+                            <span>Pendekatan Kiri (x → c⁻) | Pendekatan Kanan (x → c⁺)</span>
+                            <span id="sliderMax">+2.0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Numerical Table & Intuition Card -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-slate-800 border-b pb-2 flex items-center gap-2 text-sm">
+                            <i class="fa-solid fa-table text-indigo-600"></i> Tabel Pendekatan Numerik
+                        </h3>
+                        <p class="text-xs text-slate-500 my-2">Perhatikan saat $x$ makin dekat ke sasaran, nilai $f(x)$ stabil ke sebuah angka:</p>
+                        
+                        <div class="overflow-x-auto rounded-lg border border-slate-200">
+                            <table class="w-full text-left text-xs">
+                                <thead class="bg-slate-100 text-slate-700 font-semibold border-b">
+                                    <tr>
+                                        <th class="p-2 border-r font-mono">Nilai x</th>
+                                        <th class="p-2 font-mono">Nilai f(x)</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="numTableBody" class="divide-y divide-slate-200 font-mono text-slate-700">
+                                    <!-- Dynamic rows inserted by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Insight Box -->
+                    <div id="insightBox" class="p-4 bg-amber-50 border border-amber-200 rounded-xl space-y-1 text-xs text-amber-900">
+                        <div class="font-bold flex items-center gap-1.5">
+                            <i class="fa-solid fa-lightbulb text-amber-600"></i> Analisis Intuisi Matematika:
+                        </div>
+                        <p id="insightText" class="text-slate-700 leading-relaxed">
+                            Meskipun $f(0) = \frac{\sin 0}{0} = \frac{0}{0}$ (tidak terdefinisi), limitnya **tetap ada** yaitu $1$ karena kurva dari kiri dan kanan menuju nilai y yang sama!
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- TAB 2: 5 METODE PENYELESAIAN UTAMA -->
+        <section id="sec-metode" class="hidden space-y-6">
+            
+            <div class="bg-indigo-950 text-white p-6 rounded-2xl shadow-md border border-indigo-800 space-y-2">
+                <div class="flex items-center gap-2">
+                    <span class="p-1.5 bg-amber-400 text-indigo-950 rounded-lg font-bold text-xs uppercase">Kurikulum Merdeka</span>
+                    <h2 class="text-xl font-bold">5 Metode Penyelesaian Limit Fungsi Trigonometri</h2>
+                </div>
+                <p class="text-indigo-200 text-sm">
+                    Pilih strategi yang paling tepat berdasarkan bentuk aljabar dan trigonometri yang ditemui pada soal.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Card 1: Substitusi -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3 flex flex-col justify-between hover:border-indigo-300 transition">
+                    <div>
+                        <div class="flex justify-between items-center border-b pb-2">
+                            <span class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-1 rounded-full font-bold">Cara 1</span>
+                            <i class="fa-solid fa-arrow-right-to-bracket text-emerald-600"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-800 mt-2 text-base">Substitusi Langsung</h3>
+                        <p class="text-xs text-slate-600 mt-1">
+                            Langkah paling pertama! Masukkan nilai $x = c$ langsung ke dalam fungsi. Jika hasilnya tentu (bukan $\frac{0}{0}$), maka itulah nilai limitnya.
+                        </p>
+                        <div class="bg-slate-50 p-3 rounded-xl mt-3 border border-slate-200 text-xs font-mono text-slate-800 space-y-1">
+                            <div class="font-bold text-indigo-700">Contoh:</div>
+                            <div>$\lim_{x \to \frac{\pi}{4}} (\sin x + \cos x)$</div>
+                            <div class="text-emerald-700 font-bold">= $\sin\frac{\pi}{4} + \cos\frac{\pi}{4} = \frac{1}{2}\sqrt{2} + \frac{1}{2}\sqrt{2} = \sqrt{2}$</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Rumus Dasar -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3 flex flex-col justify-between hover:border-indigo-300 transition">
+                    <div>
+                        <div class="flex justify-between items-center border-b pb-2">
+                            <span class="bg-indigo-100 text-indigo-800 text-xs px-2.5 py-1 rounded-full font-bold">Cara 2</span>
+                            <i class="fa-solid fa-square-root-variable text-indigo-600"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-800 mt-2 text-base">Rumus Dasar Limit ($x \to 0$)</h3>
+                        <p class="text-xs text-slate-600 mt-1">
+                            Gunakan teorema dasar pasangan $\sin$ dan $\tan$ terhadap variabel $x$. Hanya mengambil koefisien sudutnya!
+                        </p>
+                        <div class="bg-slate-50 p-3 rounded-xl mt-3 border border-slate-200 text-xs font-mono text-slate-800 space-y-1">
+                            <div class="font-bold text-indigo-700">8 Bentuk Utama:</div>
+                            <div>$\lim_{x \to 0} \frac{\sin ax}{bx} = \frac{a}{b}, \quad \lim_{x \to 0} \frac{ax}{\tan bx} = \frac{a}{b}$</div>
+                            <div>$\lim_{x \to 0} \frac{\sin ax}{\tan bx} = \frac{a}{b}, \quad \lim_{x \to 0} \frac{\tan ax}{\sin bx} = \frac{a}{b}$</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Menyederhanakan -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3 flex flex-col justify-between hover:border-indigo-300 transition">
+                    <div>
+                        <div class="flex justify-between items-center border-b pb-2">
+                            <span class="bg-amber-100 text-amber-800 text-xs px-2.5 py-1 rounded-full font-bold">Cara 3</span>
+                            <i class="fa-solid fa-rotate text-amber-600"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-800 mt-2 text-base">Menyederhanakan & Identitas</h3>
+                        <p class="text-xs text-slate-600 mt-1">
+                            Ubah bentuk tak tentu $\frac{0}{0}$ dengan identitas trigonometri (misal $1 - \cos ax = 2\sin^2\left(\frac{a}{2}x\right)$).
+                        </p>
+                        <div class="bg-slate-50 p-3 rounded-xl mt-3 border border-slate-200 text-xs font-mono text-slate-800 space-y-1">
+                            <div class="font-bold text-indigo-700">Contoh:</div>
+                            <div>$\lim_{x \to 0} \frac{1 - \cos 4x}{x^2} = \lim_{x \to 0} \frac{2\sin^2(2x)}{x^2}$</div>
+                            <div class="text-emerald-700 font-bold">= $2 \cdot (2)^2 = 8$</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Pemfaktoran -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3 flex flex-col justify-between hover:border-indigo-300 transition">
+                    <div>
+                        <div class="flex justify-between items-center border-b pb-2">
+                            <span class="bg-purple-100 text-purple-800 text-xs px-2.5 py-1 rounded-full font-bold">Cara 4</span>
+                            <i class="fa-solid fa-scissors text-purple-600"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-800 mt-2 text-base">Pemfaktoran Aljabar</h3>
+                        <p class="text-xs text-slate-600 mt-1">
+                            Faktorkan pembuat nol pada pembilang/penyebut Aljabar agar sesuai dengan pasangan pembuat nol trigonometrinya.
+                        </p>
+                        <div class="bg-slate-50 p-3 rounded-xl mt-3 border border-slate-200 text-xs font-mono text-slate-800 space-y-1">
+                            <div class="font-bold text-indigo-700">Contoh:</div>
+                            <div>$\lim_{x \to 2} \frac{\sin(x-2)}{x^2 - 4} = \lim_{x \to 2} \frac{\sin(x-2)}{(x-2)(x+2)}$</div>
+                            <div class="text-emerald-700 font-bold">= $1 \cdot \frac{1}{2+2} = \frac{1}{4}$</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5: Ketakhinggaan -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3 flex flex-col justify-between hover:border-indigo-300 transition md:col-span-2 lg:col-span-2">
+                    <div>
+                        <div class="flex justify-between items-center border-b pb-2">
+                            <span class="bg-blue-100 text-blue-800 text-xs px-2.5 py-1 rounded-full font-bold">Cara 5</span>
+                            <i class="fa-solid fa-infinity text-blue-600"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-800 mt-2 text-base">Limit Trigonometri di Ketakhinggaan ($x \to \infty$)</h3>
+                        <p class="text-xs text-slate-600 mt-1">
+                            Gunakan pemisalan variabel baru: Misalkan $y = \frac{1}{x}$. Saat $x \to \infty$, maka $y \to 0$. Dengan demikian, soal ketakhinggaan diubah menjadi limit mendekati $0$!
+                        </p>
+                        <div class="bg-slate-50 p-3 rounded-xl mt-3 border border-slate-200 text-xs font-mono text-slate-800 space-y-2">
+                            <div class="font-bold text-indigo-700">Contoh Penyelesaian:</div>
+                            <div>Tentukan $\lim_{x \to \infty} x \cdot \sin\left(\frac{3}{x}\right)$</div>
+                            <div class="text-slate-600">Misal $y = \frac{1}{x} \implies x = \frac{1}{y}$. Saat $x \to \infty \implies y \to 0$.</div>
+                            <div class="text-emerald-700 font-bold">= $\lim_{y \to 0} \frac{1}{y} \cdot \sin(3y) = \lim_{y \to 0} \frac{\sin 3y}{y} = 3$</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- TAB 3: MODEL SOAL KHUSUS & GEOMETRI VISUAL -->
+        <section id="sec-model-soal" class="hidden space-y-6">
+            
+            <div class="bg-indigo-950 text-white p-6 rounded-2xl shadow-md space-y-2">
+                <div class="flex items-center gap-2">
+                    <span class="p-1.5 bg-amber-400 text-indigo-950 rounded-lg font-bold text-xs uppercase">Visual & Konseptual</span>
+                    <h2 class="text-xl font-bold">Model Soal Khusus & Pembuktian Geometris</h2>
+                </div>
+                <p class="text-indigo-200 text-sm">
+                    Memahami limit trigonometri melalui pendekatan geometri (lingkaran juring) serta tipe-tipe soal klasik ujian ($x \to c$ dan selisih kosinus).
+                </p>
+            </div>
+
+            <!-- Card 1: Pembuktian Geometris dengan Diagram SVG -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2 border-b pb-2">
+                    <i class="fa-solid fa-circle-notch text-indigo-600"></i> Model 1: Pembuktian Geometris (Luas Juring vs Luas Segitiga)
+                </h3>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                    Mengapa $\lim_{\theta \to 0} \frac{\sin \theta}{\theta} = 1$? Mari kita perhatikan konstruksi geometri lingkaran satuan dengan jari-jari $r = 1$ dan sudut $\theta$ (dalam radian):
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                    <!-- Diagram SVG -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-col items-center justify-center">
+                        <svg viewBox="0 0 300 220" class="w-full max-w-xs drop-shadow-sm">
+                            <path d="M 40,180 L 250,180 A 210,210 0 0,0 200,60 Z" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+                            <polygon points="40,180 250,180 200,100" fill="#fef3c7" fill-opacity="0.6" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4"/>
+                            <line x1="200" y1="100" x2="200" y2="180" stroke="#ef4444" stroke-width="2"/>
+                            <text x="20" y="190" class="text-xs font-bold fill-slate-700">O (0,0)</text>
+                            <text x="255" y="190" class="text-xs font-bold fill-slate-700">A (1,0)</text>
+                            <text x="200" y="50" class="text-xs font-bold fill-indigo-700">P (tan θ)</text>
+                            <text x="205" y="95" class="text-xs font-bold fill-amber-700">B (cos θ, sin θ)</text>
+                            <text x="205" y="145" class="text-xs font-bold fill-red-600">sin θ</text>
+                            <text x="70" y="170" class="text-xs font-bold fill-indigo-900">θ</text>
+                            <path d="M 80,180 A 40,40 0 0,0 75,165" fill="none" stroke="#4338ca" stroke-width="2"/>
+                        </svg>
+                        <span class="text-[11px] text-slate-500 mt-2 font-medium">Urutan Luas: Segitiga OAB $\le$ Juring OAB $\le$ Segitiga OAP</span>
+                    </div>
+
+                    <!-- Analisis Teorema Apit -->
+                    <div class="space-y-3 text-xs text-slate-700">
+                        <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl space-y-1">
+                            <div class="font-bold text-amber-900">Ketaksamaan Luas Daerah:</div>
+                            <div class="font-mono text-slate-800">$\text{Luas } \Delta OAB \le \text{Luas Juring } OAB \le \text{Luas } \Delta OAP$</div>
+                            <div class="font-mono text-indigo-900 font-bold">$\frac{1}{2} \cdot 1 \cdot \sin \theta \le \frac{1}{2} \cdot 1^2 \cdot \theta \le \frac{1}{2} \cdot 1 \cdot \tan \theta$</div>
+                        </div>
+
+                        <div class="p-3 bg-indigo-50 border border-indigo-200 rounded-xl space-y-1">
+                            <div class="font-bold text-indigo-900">Bagi seluruh ruas dengan $\frac{1}{2}\sin\theta$:</div>
+                            <div class="font-mono text-indigo-950 font-bold">$1 \le \frac{\theta}{\sin \theta} \le \frac{1}{\cos \theta}$</div>
+                            <p class="text-[11px] text-slate-600">Saat $\theta \to 0$, nilai $\frac{1}{\cos 0} = 1$. Berdasarkan **Teorema Apit (Squeeze Theorem)**:</p>
+                            <div class="font-mono font-bold text-emerald-700 text-sm">$\lim_{\theta \to 0} \frac{\sin \theta}{\theta} = 1$</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Model Soal Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- Model 2: x -> c -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="flex justify-between items-center border-b pb-2">
+                        <span class="bg-purple-100 text-purple-800 text-xs px-2.5 py-1 rounded-full font-bold">Model 2</span>
+                        <i class="fa-solid fa-right-left text-purple-600"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-sm">Limit Bentuk $x \to c$ (Pemisalan Variabel)</h3>
+                    <p class="text-xs text-slate-600">Jika $x$ tidak mendekati $0$, lakukan substitusi pemisalan $u = x - c \implies x = u + c$. Saat $x \to c$, maka $u \to 0$.</p>
+                    
+                    <div class="bg-slate-50 p-3 rounded-xl text-xs space-y-2 border border-slate-200 font-mono">
+                        <div class="font-bold text-slate-800">Contoh Soal:</div>
+                        <div class="text-indigo-700">$\lim_{x \to \frac{\pi}{2}} \frac{\cos x}{x - \frac{\pi}{2}}$</div>
+                        <div class="border-t pt-2 space-y-1 text-slate-700">
+                            <div>Misal $u = x - \frac{\pi}{2} \implies x = u + \frac{\pi}{2}$.</div>
+                            <div>$\cos x = \cos(u + \frac{\pi}{2}) = -\sin u$</div>
+                            <div class="text-emerald-700 font-bold">= $\lim_{u \to 0} \frac{-\sin u}{u} = -1$</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Model 3: Selisih Kosinus -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="flex justify-between items-center border-b pb-2">
+                        <span class="bg-amber-100 text-amber-800 text-xs px-2.5 py-1 rounded-full font-bold">Model 3</span>
+                        <i class="fa-solid fa-minus text-amber-600"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-sm">Limit Selisih Kosinus ($\cos Ax - \cos Bx$)</h3>
+                    <p class="text-xs text-slate-600">Gunakan rumus identitas perkalian: $\cos A - \cos B = -2\sin\left(\frac{A+B}{2}\right)\sin\left(\frac{A-B}{2}\right)$.</p>
+                    
+                    <div class="bg-slate-50 p-3 rounded-xl text-xs space-y-2 border border-slate-200 font-mono">
+                        <div class="font-bold text-slate-800">Rumus Praktis & Bukti:</div>
+                        <div class="text-indigo-700">$\lim_{x \to 0} \frac{\cos ax - \cos bx}{x^2} = \frac{b^2 - a^2}{2}$</div>
+                        <div class="border-t pt-2 space-y-1 text-slate-700">
+                            <div class="text-amber-900 font-bold">Contoh: $\lim_{x \to 0} \frac{\cos 5x - \cos 3x}{x^2}$</div>
+                            <div>$= \lim_{x \to 0} \frac{-2\sin(4x)\sin(x)}{x^2} = -2(4)(1) = -8$</div>
+                            <div class="text-emerald-700 font-bold">Cek Rumus Praktis: $\frac{3^2 - 5^2}{2} = \frac{9-25}{2} = -8$</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- TAB 4: BAHAN AJAR & ENSIKLOPEDIA RUMUS -->
+        <section id="sec-bahan-ajar" class="hidden space-y-6">
+            
+            <div class="bg-indigo-950 text-white p-6 rounded-2xl shadow-md space-y-3">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                    <div>
+                        <h2 class="text-xl font-bold flex items-center gap-2">
+                            <i class="fa-solid fa-book text-amber-400"></i> Ensiklopedia Rumus Trigonometri
+                        </h2>
+                        <p class="text-indigo-200 text-xs">Rumus pendukung lengkap untuk memudahkan penyelesaian limit fungsi trigonometri.</p>
+                    </div>
+                    <!-- Search Input -->
+                    <div class="relative w-full sm:w-64">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400 text-xs"></i>
+                        <input type="text" id="searchFormula" onkeyup="filterFormulas()" placeholder="Cari rumus (misal: cos, ganda)..." class="w-full bg-indigo-900/80 border border-indigo-700 text-white text-xs rounded-xl pl-8 pr-3 py-2 outline-none focus:ring-2 focus:ring-amber-400">
+                    </div>
+                </div>
+            </div>
+
+            <div id="formulaContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Identitas Dasar -->
+                <div class="formula-card bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                    <h3 class="font-bold text-indigo-900 text-sm border-b pb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-hashtag text-indigo-600"></i> Identitas Dasar Trigonometri
+                    </h3>
+                    <ul class="text-xs space-y-2 font-mono text-slate-700 pt-1">
+                        <li class="bg-slate-50 p-2 rounded-lg">$\sin^2 x + \cos^2 x = 1$</li>
+                        <li class="bg-slate-50 p-2 rounded-lg">$\sin^2 x = 1 - \cos^2 x$</li>
+                        <li class="bg-slate-50 p-2 rounded-lg">$\cos^2 x = 1 - \sin^2 x$</li>
+                        <li class="bg-slate-50 p-2 rounded-lg">$\tan x = \frac{\sin x}{\cos x}$</li>
+                    </ul>
+                </div>
+
+                <!-- Sudut Ganda -->
+                <div class="formula-card bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                    <h3 class="font-bold text-indigo-900 text-sm border-b pb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-angle-double-right text-indigo-600"></i> Sudut Ganda & Variasi Cos ax
+                    </h3>
+                    <ul class="text-xs space-y-2 font-mono text-slate-700 pt-1">
+                        <li class="bg-slate-50 p-2 rounded-lg">$\sin 2x = 2\sin x \cdot \cos x$</li>
+                        <li class="bg-slate-50 p-2 rounded-lg">$\cos 2x = 1 - 2\sin^2 x$</li>
+                        <li class="bg-amber-50 p-2 rounded-lg border border-amber-200 font-bold text-amber-900">$1 - \cos ax = 2\sin^2\left(\frac{a}{2}x\right)$</li>
+                        <li class="bg-slate-50 p-2 rounded-lg">$\tan 2x = \frac{2\tan x}{1 - \tan^2 x}$</li>
+                    </ul>
+                </div>
+
+                <!-- Penjumlahan/Selisih Fungsi -->
+                <div class="formula-card bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                    <h3 class="font-bold text-indigo-900 text-sm border-b pb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-calculator text-indigo-600"></i> Penjumlahan & Selisih Fungsi
+                    </h3>
+                    <ul class="text-xs space-y-2 font-mono text-slate-700 pt-1">
+                        <li class="bg-slate-50 p-2 rounded-lg">$\sin A + \sin B = 2\sin\left(\frac{A+B}{2}\right)\cos\left(\frac{A-B}{2}\right)$</li>
+                        <li class="bg-slate-50 p-2 rounded-lg">$\sin A - \sin B = 2\cos\left(\frac{A+B}{2}\right)\sin\left(\frac{A-B}{2}\right)$</li>
+                        <li class="bg-slate-50 p-2 rounded-lg">$\cos A + \cos B = 2\cos\left(\frac{A+B}{2}\right)\cos\left(\frac{A-B}{2}\right)$</li>
+                        <li class="bg-amber-50 p-2 rounded-lg border border-amber-200 font-bold text-amber-900">$\cos A - \cos B = -2\sin\left(\frac{A+B}{2}\right)\sin\left(\frac{A-B}{2}\right)$</li>
+                    </ul>
+                </div>
+
+                <!-- Rumus Dasar Limit x -> 0 -->
+                <div class="formula-card bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                    <h3 class="font-bold text-indigo-900 text-sm border-b pb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-infinity text-indigo-600"></i> Rumus Dasar Limit ($x \to 0$)
+                    </h3>
+                    <ul class="text-xs space-y-2 font-mono text-slate-700 pt-1">
+                        <li class="bg-slate-50 p-2 rounded-lg">$\lim_{x \to 0} \frac{\sin ax}{bx} = \frac{a}{b}, \quad \lim_{x \to 0} \frac{ax}{\sin bx} = \frac{a}{b}$</li>
+                        <li class="bg-slate-50 p-2 rounded-lg">$\lim_{x \to 0} \frac{\tan ax}{bx} = \frac{a}{b}, \quad \lim_{x \to 0} \frac{ax}{\tan bx} = \frac{a}{b}$</li>
+                        <li class="bg-slate-50 p-2 rounded-lg">$\lim_{x \to 0} \frac{\sin ax}{\tan bx} = \frac{a}{b}, \quad \lim_{x \to 0} \frac{\tan ax}{\sin bx} = \frac{a}{b}$</li>
+                        <li class="bg-slate-50 p-2 rounded-lg">$\lim_{x \to 0} \frac{\sin ax}{\sin bx} = \frac{a}{b}, \quad \lim_{x \to 0} \frac{\tan ax}{\tan bx} = \frac{a}{b}$</li>
+                    </ul>
+                </div>
+
+                <!-- Limit di Ketakhinggaan -->
+                <div class="formula-card bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2 md:col-span-2 lg:col-span-2">
+                    <h3 class="font-bold text-indigo-900 text-sm border-b pb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-arrows-to-dot text-indigo-600"></i> Limit Trigonometri di Ketakhinggaan ($x \to \infty$)
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono text-slate-700 pt-1">
+                        <div class="bg-slate-50 p-3 rounded-lg space-y-1">
+                            <span class="font-bold text-indigo-700">Aturan Substitusi $y = 1/x$:</span>
+                            <div>Saat $x \to \infty \implies y \to 0$</div>
+                            <div>$\lim_{x \to \infty} x \cdot \sin\left(\frac{a}{x}\right) = a$</div>
+                        </div>
+                        <div class="bg-slate-50 p-3 rounded-lg space-y-1">
+                            <span class="font-bold text-indigo-700">Teorema Apit Oscillation:</span>
+                            <div>$\lim_{x \to \infty} \frac{\sin x}{x} = 0$</div>
+                            <div>$\lim_{x \to \infty} \frac{\cos x}{x} = 0$</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- TAB 5: LATIHAN SOAL INTERAKTIF (20 SOAL) -->
+        <section id="sec-kuis" class="hidden space-y-6">
+            
+            <!-- Quiz Control Header -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <span class="bg-indigo-100 text-indigo-800 text-xs px-2.5 py-1 rounded-full font-bold">Evaluasi Mandiri</span>
+                        <h2 class="text-xl font-bold text-slate-800 mt-1">Latihan 20 Soal Limit Trigonometri</h2>
+                        <p class="text-xs text-slate-500">Setiap soal bernilai 5 poin. Total skor maksimal = 100 poin.</p>
+                    </div>
+
+                    <!-- Score Card -->
+                    <div class="flex items-center gap-4 bg-slate-50 p-3 rounded-xl border border-slate-200 w-full md:w-auto justify-between">
+                        <div class="text-center">
+                            <div class="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Skor Saat Ini</div>
+                            <div id="quizScoreDisplay" class="text-2xl font-black text-indigo-600">0 / 100</div>
+                        </div>
+                        <button onclick="resetQuiz()" class="px-3 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-bold rounded-lg transition flex items-center gap-1.5">
+                            <i class="fa-solid fa-rotate-left"></i> Reset Kuis
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Navigation Grid 1 - 20 -->
+                <div class="space-y-2 border-t pt-3">
+                    <div class="text-xs font-bold text-slate-700 flex justify-between items-center">
+                        <span>Pilih Nomor Soal:</span>
+                        <span id="answeredCount" class="text-indigo-600 font-mono">0 dari 20 terjawab</span>
+                    </div>
+                    <div id="questionNavGrid" class="flex flex-wrap gap-2">
+                        <!-- Dynamic Question Buttons 1-20 inserted by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active Question Card -->
+            <div id="quizCard" class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-5">
+                
+                <div class="flex justify-between items-center border-b pb-3">
+                    <span id="qNumberBadge" class="bg-indigo-600 text-white font-bold text-xs px-3 py-1 rounded-lg">Soal Nomor 1</span>
+                    <span id="qCategoryBadge" class="bg-slate-100 text-slate-600 font-medium text-xs px-2.5 py-1 rounded-md">Rumus Dasar</span>
+                </div>
+
+                <!-- Question Prompt -->
+                <div id="qPromptText" class="text-sm sm:text-base font-semibold text-slate-800 leading-relaxed font-mono">
+                    <!-- Dynamic Question Text -->
+                </div>
+
+                <!-- Options List -->
+                <div id="qOptionsContainer" class="space-y-2.5">
+                    <!-- Dynamic Options A, B, C, D inserted by JS -->
+                </div>
+
+                <!-- Feedback & Steps Display (Growth Mindset) -->
+                <div id="qFeedbackBox" class="hidden p-4 rounded-xl space-y-2 text-xs border">
+                    <div id="qFeedbackHeader" class="font-bold flex items-center gap-2 text-sm"></div>
+                    <p id="qFeedbackMessage" class="text-slate-700 leading-relaxed"></p>
+                    
+                    <!-- Step-by-Step Solution -->
+                    <div class="border-t border-slate-200 pt-2 space-y-1 font-mono text-slate-800">
+                        <div class="font-bold text-indigo-900 flex items-center gap-1">
+                            <i class="fa-solid fa-list-check"></i> Pembahasan Langkah demi Langkah:
+                        </div>
+                        <div id="qSolutionSteps" class="text-[11px] leading-normal bg-white/70 p-3 rounded-lg border border-slate-200"></div>
+                    </div>
+                </div>
+
+                <!-- Next / Prev Buttons -->
+                <div class="flex justify-between items-center border-t pt-4">
+                    <button id="btnPrevQ" onclick="prevQuestion()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition flex items-center gap-1">
+                        <i class="fa-solid fa-chevron-left"></i> Sebelumnya
+                    </button>
+                    <button id="btnNextQ" onclick="nextQuestion()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl shadow-md transition flex items-center gap-1">
+                        Berikutnya <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-indigo-950 text-indigo-300 py-6 text-center text-xs border-t border-indigo-800">
+        <div class="max-w-7xl mx-auto px-4 space-y-1">
+            <p class="font-semibold text-white">Media Pembelajaran Interaktif Limit Fungsi Trigonometri &copy; 2026</p>
+            <p class="text-indigo-400">Dirancang untuk Kelas XII SMA/MA Fase F — Pendekatan Deep Learning & Growth Mindset</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT ENGINE -->
+    <script>
+        let currentTab = 'visualizer';
+        let myChart = null;
+        let currentQIndex = 0;
+        let userAnswers = new Array(20).fill(null);
+
+        // Chart Function Data
+        const functionData = {
+            'sinX_X': {
+                label: 'f(x) = sin(x) / x',
+                fn: (x) => Math.abs(x) < 1e-6 ? 1 : Math.sin(x) / x,
+                limitVal: 1,
+                minX: -2, maxX: 2,
+                insight: 'Saat x → 0, rasio antara panjang sisi depan (sin x) dan sudutnya (x) mendekati nilai 1 sempurna!'
+            },
+            'cosMinus_X2': {
+                label: 'f(x) = (1 - cos x) / x²',
+                fn: (x) => Math.abs(x) < 1e-6 ? 0.5 : (1 - Math.cos(x)) / (x * x),
+                limitVal: 0.5,
+                minX: -2, maxX: 2,
+                insight: 'Ingat identitas 1 - cos(x) = 2 sin²(x/2). Sehingga limitnya menjadi 2 · (1/2)² = 1/2 = 0.5.'
+            },
+            'tan3X_2X': {
+                label: 'f(x) = tan(3x) / 2x',
+                fn: (x) => Math.abs(x) < 1e-6 ? 1.5 : Math.tan(3 * x) / (2 * x),
+                limitVal: 1.5,
+                minX: -0.8, maxX: 0.8,
+                insight: 'Berdasarkan rumus dasar limit trigonometri, koefisien pembilang (3) dibagi penyebut (2) menghasilkan 3/2 = 1.5.'
+            },
+            'xSinInfty': {
+                label: 'f(x) = x · sin(1/x)',
+                fn: (x) => Math.abs(x) < 1e-6 ? 1 : x * Math.sin(1 / x),
+                limitVal: 1,
+                minX: 0.1, maxX: 20,
+                insight: 'Saat x → ∞, pemisalan y = 1/x menjadikan limit bernilai sin(y)/y saat y → 0, yang mana bernilai 1!'
+            }
+        };
+
+        // 20 Questions Database
+        const quizQuestions = [
+            {
+                category: "Rumus Dasar",
+                prompt: "Tentukan nilai dari $\\lim_{x \\to 0} \\frac{\\sin 6x}{2x}$.",
+                options: ["A. 1", "B. 2", "C. 3", "D. 6"],
+                answer: 2, // C
+                steps: "Gunakan rumus dasar $\\lim_{x \\to 0} \\frac{\\sin ax}{bx} = \\frac{a}{b}$. Maka $\\frac{6}{2} = 3$."
+            },
+            {
+                category: "Menyederhanakan",
+                prompt: "Tentukan nilai dari $\\lim_{x \\to 0} \\frac{1 - \\cos 4x}{x^2}$.",
+                options: ["A. 2", "B. 4", "C. 8", "D. 16"],
+                answer: 2, // C
+                steps: "Ubah $1 - \\cos 4x = 2\\sin^2(2x)$. Maka $\\lim_{x \\to 0} \\frac{2\\sin(2x)\\sin(2x)}{x \\cdot x} = 2 \\cdot 2 \\cdot 2 = 8$."
+            },
+            {
+                category: "Substitusi Langsung",
+                prompt: "Tentukan nilai dari $\\lim_{x \\to \\frac{\\pi}{4}} \\frac{\\sin x + \\cos x}{\\tan x}$.",
+                options: ["A. 1", "B. $\\sqrt{2}$", "C. $\\frac{1}{2}\\sqrt{2}$", "D. 2"],
+                answer: 1, // B
+                steps: "Substitusi $x = \\frac{\\pi}{4}$: $\\frac{\\sin\\frac{\\pi}{4} + \\cos\\frac{\\pi}{4}}{\\tan\\frac{\\pi}{4}} = \\frac{\\frac{1}{2}\\sqrt{2} + \\frac{1}{2}\\sqrt{2}}{1} = \\sqrt{2}$."
+            },
+            {
+                category: "Ketakhinggaan",
+                prompt: "Tentukan nilai dari $\\lim_{x \\to \\infty} x \\cdot \\tan\\left(\\frac{3}{x}\\right)$.",
+                options: ["A. 0", "B. 1", "C. 3", "D. $\\infty$"],
+                answer: 2, // C
+                steps: "Misal $y = \\frac{1}{x} \\implies x = \\frac{1}{y}$. Saat $x \\to \\infty, y \\to 0$. Maka $\\lim_{y \\to 0} \\frac{\\tan 3y}{y} = 3$."
+            },
+            {
+                category: "Rumus Dasar",
+                prompt: "Tentukan nilai dari $\\lim_{x \\to 0} \\frac{\\tan 5x}{\\sin 2x}$.",
+                options: ["A. $\\frac{2}{5}$", "B. $\\frac{5}{2}$", "C. 1", "D. 10"],
+                answer: 1, // B
+                steps: "Gunakan rumus dasar $\\lim_{x \\to 0} \\frac{\\tan ax}{\\sin bx} = \\frac{a}{b}$. Maka diperoleh $\\frac{5}{2}$."
+            },
+            {
+                category: "Menyederhanakan",
+                prompt: "Tentukan nilai dari $\\lim_{x \\to 0} \\frac{\\cos 2x - 1}{x \\sin x}$.",
+                options: ["A. -2", "B. -1", "C. 0", "D. 2"],
+                answer: 0, // A
+                steps: "Ingat $\\cos 2x - 1 = -2\\sin^2 x$. Maka $\\lim_{x \\to 0} \\frac{-2\\sin x \\cdot \\sin x}{x \\cdot \\sin x} = -2 \\cdot (1) = -2$."
+            },
+            {
+                category: "Ketakhinggaan",
+                prompt: "Tentukan nilai dari $\\lim_{x \\to \\infty} \\frac{\\sin(2/x)}{1/x}$.",
+                options: ["A. 0", "B. 1", "C. 2", "D. Tidak Ada"],
+                answer: 2, // C
+                steps: "Misal $y = 1/x \\implies y \\to 0$. Soal menjadi $\\lim_{y \\to 0} \\frac{\\sin 2y}{y} = 2$."
+            },
+            {
+                category: "Pemfaktoran",
+                prompt: "Tentukan nilai dari $\\lim_{x \\to 1} \\frac{\\sin(x - 1)}{x^2 - 1}$.",
+                options: ["A. 0", "B. $\\frac{1}{2}$", "C. 1", "D. 2"],
+                answer: 1, // B
+                steps: "Faktorkan penyebut $x^2 - 1 = (x-1)(x+1)$. Soal menjadi $\\lim_{x \\to 1} \\frac{\\sin(x-1)}{x-1} \\cdot \\frac{1}{x+1} = 1 \\cdot \\frac{1}{1+1} = \\frac{1}{2}$."
+            },
+            {
+                category: "Menyederhanakan",
+                prompt: "Tentukan nilai dari $\\lim_{x \\to 0} \\frac{1 - \\cos 2x}{1 - \\cos 4x}$.",
+                options: ["A. $\\frac{1}{4}$", "B. $\\frac{1}{2}$", "C. 1", "D. 4"],
+                answer: 0, // A
+                steps: "Ubah pembilang jadi $2\\sin^2 x$ dan penyebut jadi $2\\sin^2 2x$. Hasilnya $\\frac{2(1)^2}{2(2)^2} = \\frac{2}{8} = \\frac{1}{4}$."
+            },
+            {
+                category: "Rumus Dasar",
+                prompt: "Tentukan nilai dari $\\lim_{x \\to 0} \\frac{\\sin 3x + \\tan 2x}{5x}$.",
+                options: ["A. $\\frac{1}{5}$", "B. 1", "C. $\\frac{5}{2}$", "D. 5"],
+                answer: 1, // B
+                steps: "Pisahkan pecahan menjadi $\\lim_{x \\to 0} \\frac{\\sin 3x}{5x} + \\lim_{x \\to 0} \\frac{\\tan 2x}{5x} = \\frac{3}{5} + \\frac{2}{5} = \\frac{5}{5} = 1$."
+            },
+            {
+                category: "Pemfaktoran",
+                prompt: "Tentukan nilai dari $\\lim_{x \\to 2} \\frac{\\tan(x - 2)}{x^2 - 4}$.",
+                options: ["A. $\\frac{1}{4}$", "B. $\\frac{1}{2}$", "C. 1", "D. 4"],
+                answer: 0, // A
+                steps: "Faktorkan penyebut $(x-2)(x+2)$. Limitnya $\\lim_{x \\to 2} \\frac{\\tan(x-2)}{x-2} \\cdot \\frac{1}{x+2} = 1 \\cdot \\frac{1}{4} = \\frac{1}{4}$."
+            },
+            {
+                category: "Menyederhanakan",
+                prompt: "Tentukan nilai dari $\\lim_{x \\to 0} \\frac{x \\cdot \\tan 2x}{1 - \\cos 6x}$.",
+                options: ["A. $\\frac{1}{18}$", "B. $\\frac{1}{9}$", "C. $\\frac{1}{3}$", "D. $\\frac{2}{9}$"],
+                answer: 1, // B
+                steps: "Ubah $1 - \\cos 6x = 2\\sin^2 3x$. Limit menjadi $\\frac{1}{2} \\cdot \\frac{x \\cdot \\tan 2x}{\\sin 3x \\cdot \\sin 3x} = \\frac{1}{2} \\cdot \\frac{1 \\cdot 2}{3 \\cdot 3} = \\frac{2}{18} = \\frac{1}{9}$."
+            },
+            {
+                category: "Model x -> c",
+                prompt: "Tentukan nilai dari $\\lim_{x \\to \\frac{\\pi}{2}} \\frac{\\cos x}{x - \\frac{\\pi}{2}}$.",
+                options: ["A. -1", "B. 0", "C. 1", "D. $\\frac{\\pi}{2}$"],
+                answer: 0, // A
+                steps: "Misal $u = x - \\frac{\\pi}{2} \\implies x = u + \\frac{\\pi}{2}$. Karena $\\cos(u + \\pi/2) = -\\sin u$, maka $\\lim_{u \\to 0} \\frac{-\\sin u}{u} = -1$."
+            },
+            {
+                category: "Selisih Kosinus",
+                prompt: "Tentukan nilai dari $\\lim_{x \\to 0} \\frac{\\cos 5x - \\cos 3x}{x^2}$.",
+                options: ["A. -8", "B. -4", "C. 4", "D. 8"],
+                answer: 0, // A
+                steps: "Ubah $\\cos 5x - \\cos 3x = -2\\sin 4x \\cdot \\sin x$. Limitnya $\\lim_{x \\to 0} \\frac{-2\\sin 4x \\cdot \\sin x}{x \\cdot x} = -2(4)(1) = -8$."
+            },
+            {
+                category: "Rumus Dasar",
+                prompt: "Tentukan nilai dari $\\lim_{x \\to 0} \\frac{\\sin^2 3x}{2x^2}$.",
+                options: ["A. $\\frac{3}{2}$", "B. 3", "C. $\\frac{9}{2}$", "D. 9"],
+                answer: 2, // C
+                steps: "Jabarkan $\\frac{1}{2} \\cdot \\frac{\\sin 3x}{x} \\cdot \\frac{\\sin 3x}{x} = \\frac{1}{2} \\cdot 3 \\cdot 3 = \\frac{9}{2}$."
+            },
+            {
+                category: "Menyederhanakan",
+                prompt: "Tentukan nilai dari $\\lim_{x \\to 0} \\frac{1 - \\cos 8x}{x \\cdot \\tan 2x}$.",
+                options: ["A. 4", "B. 8", "C. 16", "D. 32"],
+                answer: 2, // C
+                steps: "Ubah $1 - \\cos 8x = 2\\sin^2 4x$. Soal menjadi $\\lim_{x \\to 0} \\frac{2\\sin 4x \\cdot \\sin 4x}{x \\cdot \\tan 2x} = 2 \\cdot 4 \\cdot \\frac{4}{2} = 16$."
+            },
+            {
+                category: "Pemfaktoran",
+                prompt: "Tentukan nilai dari $\\lim_{x \\to 3} \\frac{x^2 - 9}{\\sin(x - 3)}$.",
+                options: ["A. 0", "B. 3", "C. 6", "D. 9"],
+                answer: 2, // C
+                steps: "Faktorkan pembilang $(x-3)(x+3)$. Limitnya $\\lim_{x \\to 3} \\frac{x-3}{\\sin(x-3)} \\cdot (x+3) = 1 \\cdot (3+3) = 6$."
+            },
+            {
+                category: "Identitas",
+                prompt: "Tentukan nilai dari $\\lim_{x \\to 0} \\frac{2\\sin x \\cdot \\cos x}{\\tan 4x}$.",
+                options: ["A. $\\frac{1}{4}$", "B. $\\frac{1}{2}$", "C. 1", "D. 2"],
+                answer: 1, // B
+                steps: "Gunakan identitas $2\\sin x \\cos x = \\sin 2x$. Soal menjadi $\\lim_{x \\to 0} \\frac{\\sin 2x}{\\tan 4x} = \\frac{2}{4} = \\frac{1}{2}$."
+            },
+            {
+                category: "Ketakhinggaan",
+                prompt: "Tentukan nilai dari $\\lim_{x \\to \\infty} x^2 \\left(1 - \\cos\\left(\\frac{2}{x}\\right)\\right)$.",
+                options: ["A. 1", "B. 2", "C. 4", "D. 8"],
+                answer: 1, // B
+                steps: "Misal $y = 1/x \\implies y \\to 0$. Soal menjadi $\\lim_{y \\to 0} \\frac{1 - \\cos 2y}{y^2} = \\lim_{y \\to 0} \\frac{2\\sin^2 y}{y^2} = 2(1)^2 = 2$."
+            },
+            {
+                category: "Selisih Kosinus",
+                prompt: "Tentukan nilai dari $\\lim_{x \\to 0} \\frac{\\cos 4x - \\cos 2x}{\\sin 3x \\cdot \\tan x}$.",
+                options: ["A. -2", "B. -1", "C. 1", "D. 3"],
+                answer: 0, // A
+                steps: "Gunakan identitas $\\cos 4x - \\cos 2x = -2\\sin 3x \\cdot \\sin x$. Maka $\\lim_{x \\to 0} \\frac{-2\\sin 3x \\cdot \\sin x}{\\sin 3x \\cdot \\tan x} = \\lim_{x \\to 0} \\frac{-2\\sin x}{\\tan x} = -2(1) = -2$."
+            }
+        ];
+
+        function switchTab(tabId) {
+            currentTab = tabId;
+            ['visualizer', 'metode', 'model-soal', 'bahan-ajar', 'kuis'].forEach(id => {
+                const sec = document.getElementById(`sec-${id}`);
+                const btn = document.getElementById(`tab-${id}`);
+                if (id === tabId) {
+                    sec.classList.remove('hidden');
+                    btn.classList.add('active');
+                } else {
+                    sec.classList.add('hidden');
+                    btn.classList.remove('active');
+                }
+            });
+
+            if (tabId === 'visualizer') {
+                setTimeout(initChart, 100);
+            }
+
+            // Re-render LaTeX
+            if (window.MathJax) {
+                MathJax.typesetPromise();
+            }
+        }
+
+        function initChart() {
+            const canvas = document.getElementById('limitChart');
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+            const selectedKey = document.getElementById('funcSelect').value;
+            const dataObj = functionData[selectedKey];
+
+            // Generate plot data
+            const labels = [];
+            const datasetData = [];
+            const step = (dataObj.maxX - dataObj.minX) / 100;
+
+            for (let x = dataObj.minX; x <= dataObj.maxX; x += step) {
+                labels.push(x.toFixed(2));
+                datasetData.push(dataObj.fn(x));
+            }
+
+            if (myChart) {
+                myChart.destroy();
+            }
+
+            myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: dataObj.label,
+                        data: datasetData,
+                        borderColor: '#4f46e5',
+                        backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.2,
+                        pointRadius: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: true }
+                    },
+                    scales: {
+                        x: { title: { display: true, text: 'Nilai x' } },
+                        y: { title: { display: true, text: 'Nilai f(x)' } }
+                    }
+                }
+            });
+
+            onSliderMove();
+        }
+
+        function updateChart() {
+            const selectedKey = document.getElementById('funcSelect').value;
+            const dataObj = functionData[selectedKey];
+            
+            const slider = document.getElementById('xSlider');
+            slider.min = dataObj.minX;
+            slider.max = dataObj.maxX;
+            slider.value = (dataObj.minX + dataObj.maxX) / 2;
+
+            document.getElementById('sliderMin').innerText = dataObj.minX.toFixed(1);
+            document.getElementById('sliderMax').innerText = dataObj.maxX.toFixed(1);
+
+            document.getElementById('insightText').innerText = dataObj.insight;
+
+            initChart();
+        }
+
+        function onSliderMove() {
+            const sliderVal = parseFloat(document.getElementById('xSlider').value);
+            document.getElementById('sliderValDisplay').innerText = `x = ${sliderVal.toFixed(2)}`;
+
+            const selectedKey = document.getElementById('funcSelect').value;
+            const dataObj = functionData[selectedKey];
+
+            // Populate table
+            const tableBody = document.getElementById('numTableBody');
+            tableBody.innerHTML = '';
+
+            const deltas = [-0.1, -0.01, -0.001, 0, 0.001, 0.01, 0.1];
+            deltas.forEach(d => {
+                const evalX = sliderVal + d;
+                const evalY = dataObj.fn(evalX);
+                const isExactZero = Math.abs(d) < 1e-5;
+
+                const tr = document.createElement('tr');
+                if (isExactZero) {
+                    tr.className = 'bg-amber-100 font-bold text-amber-900';
+                }
+                tr.innerHTML = `
+                    <td class="p-2 border-r">${evalX.toFixed(3)}</td>
+                    <td class="p-2">${evalY.toFixed(4)}</td>
+                `;
+                tableBody.appendChild(tr);
+            });
+        }
+
+        function filterFormulas() {
+            const input = document.getElementById('searchFormula').value.toLowerCase();
+            const cards = document.querySelectorAll('.formula-card');
+
+            cards.forEach(card => {
+                const text = card.innerText.toLowerCase();
+                if (text.includes(input)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function initQuiz() {
+            renderNavGrid();
+            renderQuestion(0);
+        }
+
+        function renderNavGrid() {
+            const grid = document.getElementById('questionNavGrid');
+            grid.innerHTML = '';
+
+            quizQuestions.forEach((q, idx) => {
+                const btn = document.createElement('button');
+                btn.onclick = () => renderQuestion(idx);
+                
+                let bgColor = 'bg-slate-100 text-slate-700 hover:bg-slate-200';
+                if (userAnswers[idx] !== null) {
+                    bgColor = 'bg-indigo-600 text-white font-bold';
+                }
+                if (idx === currentQIndex) {
+                    bgColor += ' ring-2 ring-amber-400 font-extrabold';
+                }
+
+                btn.className = `w-8 h-8 rounded-lg text-xs font-mono transition ${bgColor}`;
+                btn.innerText = idx + 1;
+                grid.appendChild(btn);
+            });
+
+            // Update answered count
+            const answered = userAnswers.filter(a => a !== null).length;
+            document.getElementById('answeredCount').innerText = `${answered} dari 20 terjawab`;
+            
+            // Calculate Score
+            let score = 0;
+            userAnswers.forEach((ans, i) => {
+                if (ans === quizQuestions[i].answer) {
+                    score += 5;
+                }
+            });
+            document.getElementById('quizScoreDisplay').innerText = `${score} / 100`;
+        }
+
+        function renderQuestion(index) {
+            currentQIndex = index;
+            const q = quizQuestions[index];
+
+            document.getElementById('qNumberBadge').innerText = `Soal Nomor ${index + 1} dari 20`;
+            document.getElementById('qCategoryBadge').innerText = q.category;
+            document.getElementById('qPromptText').innerHTML = q.prompt;
+
+            const optionsContainer = document.getElementById('qOptionsContainer');
+            optionsContainer.innerHTML = '';
+
+            q.options.forEach((optText, optIdx) => {
+                const isSelected = userAnswers[index] === optIdx;
+                const btn = document.createElement('button');
+                btn.onclick = () => selectAnswer(optIdx);
+
+                let btnStyle = 'bg-slate-50 border-slate-200 text-slate-800 hover:bg-indigo-50 hover:border-indigo-300';
+                if (isSelected) {
+                    btnStyle = 'bg-indigo-50 border-indigo-600 text-indigo-900 font-bold ring-1 ring-indigo-500';
+                }
+
+                btn.className = `w-full text-left p-3 rounded-xl border text-xs sm:text-sm font-mono transition flex items-center justify-between ${btnStyle}`;
+                btn.innerHTML = `<span>${optText}</span> ${isSelected ? '<i class="fa-solid fa-circle-check text-indigo-600"></i>' : ''}`;
+                optionsContainer.appendChild(btn);
+            });
+
+            // Feedback Box
+            const feedbackBox = document.getElementById('qFeedbackBox');
+            if (userAnswers[index] !== null) {
+                feedbackBox.classList.remove('hidden');
+                const isCorrect = userAnswers[index] === q.answer;
+                
+                const header = document.getElementById('qFeedbackHeader');
+                const msg = document.getElementById('qFeedbackMessage');
+                const steps = document.getElementById('qSolutionSteps');
+
+                if (isCorrect) {
+                    feedbackBox.className = 'p-4 rounded-xl space-y-2 text-xs border bg-emerald-50 border-emerald-200 text-emerald-950';
+                    header.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-600 text-base"></i> Jawaban Kamu Benar! (+5 Poin)';
+                    msg.innerText = 'Luar biasa! Pemahaman konsep kamu makin solid. Teruskan pola pikir bertumbuh ini!';
+                } else {
+                    feedbackBox.className = 'p-4 rounded-xl space-y-2 text-xs border bg-amber-50 border-amber-200 text-amber-950';
+                    header.innerHTML = '<i class="fa-solid fa-circle-xmark text-amber-600 text-base"></i> Belum Tepat (Proses Belajar!)';
+                    msg.innerText = 'Tidak apa-apa! Kesalahan adalah bagian alami dari proses otak membentuk koneksi sinapsis baru.';
+                }
+
+                steps.innerHTML = q.steps;
+            } else {
+                feedbackBox.classList.add('hidden');
+            }
+
+            renderNavGrid();
+
+            if (window.MathJax) {
+                MathJax.typesetPromise();
+            }
+        }
+
+        function selectAnswer(optIdx) {
+            userAnswers[currentQIndex] = optIdx;
+            renderQuestion(currentQIndex);
+        }
+
+        function nextQuestion() {
+            if (currentQIndex < quizQuestions.length - 1) {
+                renderQuestion(currentQIndex + 1);
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQIndex > 0) {
+                renderQuestion(currentQIndex - 1);
+            }
+        }
+
+        function resetQuiz() {
+            userAnswers = new Array(20).fill(null);
+            renderQuestion(0);
+        }
+
+        window.onload = function() {
+            initChart();
+            initQuiz();
+        };
+    </script>
+</body>
+</html>
